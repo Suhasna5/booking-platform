@@ -62,3 +62,7 @@ This file contains a growing ruleset that improves over time. **At session start
 26. [PROCESS] Always read and follow `AGENTS.md` before each task, because the user requires it as the source of project-specific working rules.
 27. [TOOL] Always make formatting commands tolerate empty source globs, because the scaffold may not yet contain files in every configured directory.
 28. [PROCESS] Always confirm whether a scaffold path already contains an implementation file before choosing an update instead of an add operation, because placeholder directories may be intentionally empty.
+29. [TOOL] Always expose a package script before invoking a named migration command, because verification commands must be reproducible for every developer.
+30. [PROCESS] Always wait for PostgreSQL readiness before generating or running migrations, because a started container may not yet accept database connections.
+31. [TOOL] Never assign to `status` in zsh scripts, because zsh reserves that variable as read-only.
+32. [DATA] Always mount the current `postgres` image volume at `/var/lib/postgresql`, because PostgreSQL 18 and later manage version-specific data directories below that path.
