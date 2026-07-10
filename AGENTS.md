@@ -61,3 +61,4 @@ This file contains a growing ruleset that improves over time. **At session start
 25. [PROCESS] Always keep pull requests focused and reasonably small, because smaller reviews are faster, safer, and easier to reason about.
 26. [PROCESS] Always read and follow `AGENTS.md` before each task, because the user requires it as the source of project-specific working rules.
 27. [TOOL] Always make formatting commands tolerate empty source globs, because the scaffold may not yet contain files in every configured directory.
+28. [PROCESS] Always confirm whether a scaffold path already contains an implementation file before choosing an update instead of an add operation, because placeholder directories may be intentionally empty.
