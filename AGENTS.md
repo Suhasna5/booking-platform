@@ -60,3 +60,4 @@ This file contains a growing ruleset that improves over time. **At session start
 24. [PROCESS] Always include in every pull request a clear summary, linked task or requirement when available, testing notes, and screenshots or API examples when relevant, because reviewers need enough context to validate the change quickly.
 25. [PROCESS] Always keep pull requests focused and reasonably small, because smaller reviews are faster, safer, and easier to reason about.
 26. [PROCESS] Always read and follow `AGENTS.md` before each task, because the user requires it as the source of project-specific working rules.
+27. [TOOL] Always make formatting commands tolerate empty source globs, because the scaffold may not yet contain files in every configured directory.
