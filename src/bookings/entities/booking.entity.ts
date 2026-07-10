@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Index,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
@@ -10,6 +11,12 @@ import {
 import { Service } from '../../services/entities/service.entity';
 import { BookingStatus } from './booking-status.enum';
 
+@Index('IDX_bookings_status', ['status'])
+@Index('IDX_bookings_service_date_time', [
+  'serviceId',
+  'bookingDate',
+  'bookingTime',
+])
 @Entity({ name: 'bookings' })
 export class Booking {
   @PrimaryGeneratedColumn('uuid')
