@@ -66,3 +66,4 @@ This file contains a growing ruleset that improves over time. **At session start
 30. [PROCESS] Always wait for PostgreSQL readiness before generating or running migrations, because a started container may not yet accept database connections.
 31. [TOOL] Never assign to `status` in zsh scripts, because zsh reserves that variable as read-only.
 32. [DATA] Always mount the current `postgres` image volume at `/var/lib/postgresql`, because PostgreSQL 18 and later manage version-specific data directories below that path.
+33. [TOOL] Always make optional file searches non-blocking, because no matching project template is a valid result.
