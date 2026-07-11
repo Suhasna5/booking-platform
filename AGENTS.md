@@ -59,3 +59,20 @@ This file contains a growing ruleset that improves over time. **At session start
 23. [PROCESS] Always load and follow the repository pull request template when one exists, because pull requests should capture the standard context, testing notes, and review checklist.
 24. [PROCESS] Always include in every pull request a clear summary, linked task or requirement when available, testing notes, and screenshots or API examples when relevant, because reviewers need enough context to validate the change quickly.
 25. [PROCESS] Always keep pull requests focused and reasonably small, because smaller reviews are faster, safer, and easier to reason about.
+26. [PROCESS] Always read and follow `AGENTS.md` before each task, because the user requires it as the source of project-specific working rules.
+27. [TOOL] Always make formatting commands tolerate empty source globs, because the scaffold may not yet contain files in every configured directory.
+28. [PROCESS] Always confirm whether a scaffold path already contains an implementation file before choosing an update instead of an add operation, because placeholder directories may be intentionally empty.
+29. [TOOL] Always expose a package script before invoking a named migration command, because verification commands must be reproducible for every developer.
+30. [PROCESS] Always wait for PostgreSQL readiness before generating or running migrations, because a started container may not yet accept database connections.
+31. [TOOL] Never assign to `status` in zsh scripts, because zsh reserves that variable as read-only.
+32. [DATA] Always mount the current `postgres` image volume at `/var/lib/postgresql`, because PostgreSQL 18 and later manage version-specific data directories below that path.
+33. [TOOL] Always make optional file searches non-blocking, because no matching project template is a valid result.
+34. [CODE] Always narrow framework exception payloads before accessing fields, because NestJS exposes non-string exception responses as generic objects.
+35. [PROCESS] Always supply documented environment variables explicitly for local runtime checks, because `.env` is intentionally ignored and may be absent.
+36. [STYLE] Always add a single short comment when the purpose of a new file, type, or non-obvious block would be unclear to a learner, because maintainability here requires brief why-oriented guidance without long AI-style comment walls.
+37. [STYLE] Always add one short purpose comment above each CRUD endpoint mapping, because endpoint blocks should be easy to scan for learners without adding noisy comment walls.
+38. [PROCESS] Always keep commits small enough for fast review: under 100 LOC is excellent, 100 to 300 LOC is ideal for most feature or fix commits, 300 to 500 LOC is acceptable for one logical change, and 500 to 1000 LOC is large and should be split if possible, because review quality drops as commit size grows.
+39. [TOOL] Always keep the migration-generation script path-agnostic, because every schema change needs its own descriptive migration name.
+40. [TEST] Always run the full lint command after adding tests, because Jest mocks must satisfy the project's strict TypeScript safety rules.
+41. [PROCESS] Never add Claude or any AI as a `Co-Authored-By` trailer or author on commits or pull requests, because the user requires it.
+42. [STYLE] Never write vague placeholder comments such as "as they are introduced" or "as they are added"; put a specific one-line comment above each method or logical block describing what that logic does, because per-method intent should be scannable at a glance.

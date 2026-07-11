@@ -1,4 +1,5 @@
 services:
+  # Runs the local PostgreSQL database used by the API and migrations.
   postgres:
     image: postgres
     container_name: booking-platform-postgres
@@ -9,7 +10,12 @@ services:
     ports:
       - '${DATABASE_PORT:-5432}:5432'
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${DATABASE_USER} -d ${DATABASE_NAME}']
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 volumes:
   postgres_data:
