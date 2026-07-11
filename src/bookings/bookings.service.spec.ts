@@ -3,7 +3,7 @@ import {
   ConflictException,
   NotFoundException,
 } from '@nestjs/common';
-import { DeepPartial, FindOptionsWhere } from 'typeorm';
+import { DeepPartial, FindManyOptions, FindOptionsWhere } from 'typeorm';
 import { BookingsService } from './bookings.service';
 import { BookingStatus } from './entities/booking-status.enum';
 import { Booking } from './entities/booking.entity';
@@ -15,6 +15,10 @@ describe('BookingsService', () => {
     create: jest.fn<Booking, [DeepPartial<Booking>]>(),
     save: jest.fn<Promise<Booking>, [Booking]>(),
     find: jest.fn<Promise<Booking[]>, []>(),
+    findAndCount: jest.fn<
+      Promise<[Booking[], number]>,
+      [FindManyOptions<Booking>]
+    >(),
     findOneBy: jest.fn<Promise<Booking | null>, [FindOptionsWhere<Booking>]>(),
   };
   const services = { findOneBy: jest.fn() };
@@ -120,6 +124,35 @@ describe('BookingsService', () => {
 
     await expect(service.cancel('booking-id')).rejects.toBeInstanceOf(
       ConflictException,
+    );
+  });
+
+  it('paginates with skip, take, and totals', async () => {
+    bookings.findAndCount.mockResolvedValue([[], 42]);
+
+    const result = await service.findAll({ page: 3, limit: 10 });
+
+    const options = bookings.findAndCount.mock.calls[0]?.[0];
+    expect(options?.skip).toBe(20);
+    expect(options?.take).toBe(10);
+    expect(result).toEqual({ items: [], page: 3, limit: 10, total: 42 });
+  });
+
+  it('expands search into an OR over customer fields with the status filter', async () => {
+    bookings.findAndCount.mockResolvedValue([[], 0]);
+
+    await service.findAll({
+      page: 1,
+      limit: 20,
+      search: 'jane',
+      status: BookingStatus.Pending,
+    });
+
+    const where = bookings.findAndCount.mock.calls[0]?.[0]?.where;
+    expect(Array.isArray(where)).toBe(true);
+    expect(where).toHaveLength(3);
+    expect(where?.[0]).toEqual(
+      expect.objectContaining({ status: BookingStatus.Pending }),
     );
   });
 });
