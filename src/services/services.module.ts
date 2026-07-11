@@ -4,7 +4,7 @@ import { Service } from './entities/service.entity';
 import { ServicesController } from './services.controller';
 import { ServicesService } from './services.service';
 
-// Owns service persistence and delivery concerns.
+// Wires the Service repository to its controller and service.
 @Module({
   imports: [TypeOrmModule.forFeature([Service])],
   controllers: [ServicesController],
