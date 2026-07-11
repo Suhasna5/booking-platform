@@ -1,6 +1,7 @@
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
+// Builds runtime connection options from the application's environment variables.
 export function createDatabaseOptions(
   configService: ConfigService,
 ): TypeOrmModuleOptions {

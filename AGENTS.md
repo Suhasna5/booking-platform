@@ -67,3 +67,8 @@ This file contains a growing ruleset that improves over time. **At session start
 31. [TOOL] Never assign to `status` in zsh scripts, because zsh reserves that variable as read-only.
 32. [DATA] Always mount the current `postgres` image volume at `/var/lib/postgresql`, because PostgreSQL 18 and later manage version-specific data directories below that path.
 33. [TOOL] Always make optional file searches non-blocking, because no matching project template is a valid result.
+34. [CODE] Always narrow framework exception payloads before accessing fields, because NestJS exposes non-string exception responses as generic objects.
+35. [PROCESS] Always supply documented environment variables explicitly for local runtime checks, because `.env` is intentionally ignored and may be absent.
+36. [STYLE] Always add a single short comment when the purpose of a new file, type, or non-obvious block would be unclear to a learner, because maintainability here requires brief why-oriented guidance without long AI-style comment walls.
+37. [STYLE] Always add one short purpose comment above each CRUD endpoint mapping, because endpoint blocks should be easy to scan for learners without adding noisy comment walls.
+38. [PROCESS] Always keep commits small enough for fast review: under 100 LOC is excellent, 100 to 300 LOC is ideal for most feature or fix commits, 300 to 500 LOC is acceptable for one logical change, and 500 to 1000 LOC is large and should be split if possible, because review quality drops as commit size grows.
