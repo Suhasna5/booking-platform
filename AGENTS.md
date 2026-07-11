@@ -72,3 +72,5 @@ This file contains a growing ruleset that improves over time. **At session start
 36. [STYLE] Always add a single short comment when the purpose of a new file, type, or non-obvious block would be unclear to a learner, because maintainability here requires brief why-oriented guidance without long AI-style comment walls.
 37. [STYLE] Always add one short purpose comment above each CRUD endpoint mapping, because endpoint blocks should be easy to scan for learners without adding noisy comment walls.
 38. [PROCESS] Always keep commits small enough for fast review: under 100 LOC is excellent, 100 to 300 LOC is ideal for most feature or fix commits, 300 to 500 LOC is acceptable for one logical change, and 500 to 1000 LOC is large and should be split if possible, because review quality drops as commit size grows.
+39. [TOOL] Always keep the migration-generation script path-agnostic, because every schema change needs its own descriptive migration name.
+40. [TEST] Always run the full lint command after adding tests, because Jest mocks must satisfy the project's strict TypeScript safety rules.
