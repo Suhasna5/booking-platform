@@ -5,7 +5,7 @@ import { BookingsController } from './bookings.controller';
 import { Booking } from './entities/booking.entity';
 import { BookingsService } from './bookings.service';
 
-// Owns booking persistence and delivery concerns.
+// Wires the Booking and Service repositories to the bookings controller and service.
 @Module({
   imports: [TypeOrmModule.forFeature([Booking, Service])],
   controllers: [BookingsController],

@@ -1,5 +1,70 @@
-import { Controller } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { BookingResponseDto } from './dto/booking-response.dto';
+import { CreateBookingDto } from './dto/create-booking.dto';
+import { UpdateBookingStatusDto } from './dto/update-booking-status.dto';
+import { BookingsService } from './bookings.service';
 
-// Hosts customer booking routes added in the bookings increment.
+// Public booking creation plus JWT-protected staff management routes.
+@ApiTags('Bookings')
 @Controller('bookings')
-export class BookingsController {}
+export class BookingsController {
+  constructor(private readonly bookingsService: BookingsService) {}
+
+  // Creates a booking for a customer; open to the public.
+  @Post()
+  @ApiCreatedResponse({ type: BookingResponseDto })
+  create(@Body() dto: CreateBookingDto) {
+    return this.bookingsService.create(dto);
+  }
+
+  // Lists all bookings for staff.
+  @Get()
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @ApiOkResponse({ type: BookingResponseDto, isArray: true })
+  findAll() {
+    return this.bookingsService.findAll();
+  }
+
+  // Gets one booking for staff.
+  @Get(':id')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @ApiOkResponse({ type: BookingResponseDto })
+  findOne(@Param('id') id: string) {
+    return this.bookingsService.findOne(id);
+  }
+
+  // Transitions a booking to a new status for staff.
+  @Patch(':id/status')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @ApiOkResponse({ type: BookingResponseDto })
+  updateStatus(@Param('id') id: string, @Body() dto: UpdateBookingStatusDto) {
+    return this.bookingsService.updateStatus(id, dto.status);
+  }
+
+  // Cancels a booking for staff.
+  @Patch(':id/cancel')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @ApiOkResponse({ type: BookingResponseDto })
+  cancel(@Param('id') id: string) {
+    return this.bookingsService.cancel(id);
+  }
+}
