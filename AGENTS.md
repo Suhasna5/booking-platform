@@ -74,3 +74,5 @@ This file contains a growing ruleset that improves over time. **At session start
 38. [PROCESS] Always keep commits small enough for fast review: under 100 LOC is excellent, 100 to 300 LOC is ideal for most feature or fix commits, 300 to 500 LOC is acceptable for one logical change, and 500 to 1000 LOC is large and should be split if possible, because review quality drops as commit size grows.
 39. [TOOL] Always keep the migration-generation script path-agnostic, because every schema change needs its own descriptive migration name.
 40. [TEST] Always run the full lint command after adding tests, because Jest mocks must satisfy the project's strict TypeScript safety rules.
+41. [PROCESS] Never add Claude or any AI as a `Co-Authored-By` trailer or author on commits or pull requests, because the user requires it.
+42. [STYLE] Never write vague placeholder comments such as "as they are introduced" or "as they are added"; put a specific one-line comment above each method or logical block describing what that logic does, because per-method intent should be scannable at a glance.
