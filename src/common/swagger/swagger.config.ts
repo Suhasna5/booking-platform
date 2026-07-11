@@ -1,6 +1,7 @@
 import { INestApplication } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
+// Builds the shared OpenAPI document shown to API consumers.
 export function configureSwagger(app: INestApplication): void {
   const config = new DocumentBuilder()
     .setTitle('Booking Platform API')

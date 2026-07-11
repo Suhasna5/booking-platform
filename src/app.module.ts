@@ -6,6 +6,7 @@ import { BookingsModule } from './bookings/bookings.module';
 import { createDatabaseOptions } from './database/database.config';
 import { ServicesModule } from './services/services.module';
 
+// Composes the application's modules and shared infrastructure.
 @Module({
   imports: [
     ConfigModule.forRoot({

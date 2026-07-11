@@ -9,6 +9,7 @@ import {
 import { Request, Response } from 'express';
 import { ErrorResponse, ValidationErrorDetail } from '../errors/error-response';
 
+// Converts all thrown HTTP errors into the API's predictable error contract.
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
   catch(exception: unknown, host: ArgumentsHost): void {

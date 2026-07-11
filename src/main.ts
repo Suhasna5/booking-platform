@@ -5,6 +5,7 @@ import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { configureSwagger } from './common/swagger/swagger.config';
 import { createValidationException } from './common/validation/validation-exception.factory';
 
+// Starts the HTTP server with the API-wide behavior configured once.
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 

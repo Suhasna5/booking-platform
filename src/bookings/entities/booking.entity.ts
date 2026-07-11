@@ -17,6 +17,7 @@ import { BookingStatus } from './booking-status.enum';
   'bookingDate',
   'bookingTime',
 ])
+// Persists a customer's requested time slot for a service.
 @Entity({ name: 'bookings' })
 export class Booking {
   @PrimaryGeneratedColumn('uuid')

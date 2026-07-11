@@ -3,6 +3,7 @@ import { DataSource } from 'typeorm';
 
 const port = Number(process.env.DATABASE_PORT ?? 5432);
 
+// Gives TypeORM CLI commands the same PostgreSQL settings as the Nest app.
 export default new DataSource({
   type: 'postgres',
   host: process.env.DATABASE_HOST ?? 'localhost',

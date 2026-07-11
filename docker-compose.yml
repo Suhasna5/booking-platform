@@ -1,4 +1,5 @@
 services:
+  # Runs the local PostgreSQL database used by the API and migrations.
   postgres:
     image: postgres
     container_name: booking-platform-postgres

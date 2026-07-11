@@ -8,6 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+// Persists an offering that customers can select when booking.
 @Entity({ name: 'services' })
 export class Service {
   @PrimaryGeneratedColumn('uuid')

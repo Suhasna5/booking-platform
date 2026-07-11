@@ -1,5 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
+// Creates the initial services and bookings schema.
 export class InitialSchema1783713876245 implements MigrationInterface {
   name = 'InitialSchema1783713876245';
 
