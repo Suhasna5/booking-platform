@@ -5,6 +5,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import {
@@ -14,8 +15,10 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { BookingQueryDto } from './dto/booking-query.dto';
 import { BookingResponseDto } from './dto/booking-response.dto';
 import { CreateBookingDto } from './dto/create-booking.dto';
+import { PaginatedBookingsDto } from './dto/paginated-bookings.dto';
 import { UpdateBookingStatusDto } from './dto/update-booking-status.dto';
 import { BookingsService } from './bookings.service';
 
@@ -32,13 +35,13 @@ export class BookingsController {
     return this.bookingsService.create(dto);
   }
 
-  // Lists all bookings for staff.
+  // Lists a filtered, paginated page of bookings for staff.
   @Get()
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  @ApiOkResponse({ type: BookingResponseDto, isArray: true })
-  findAll() {
-    return this.bookingsService.findAll();
+  @ApiOkResponse({ type: PaginatedBookingsDto })
+  findAll(@Query() query: BookingQueryDto) {
+    return this.bookingsService.findAll(query);
   }
 
   // Gets one booking for staff.

@@ -5,10 +5,12 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Not, Repository } from 'typeorm';
+import { FindOptionsWhere, ILike, Not, Repository } from 'typeorm';
 import { Service } from '../services/entities/service.entity';
+import { BookingQueryDto } from './dto/booking-query.dto';
 import { BookingResponseDto } from './dto/booking-response.dto';
 import { CreateBookingDto } from './dto/create-booking.dto';
+import { PaginatedBookingsDto } from './dto/paginated-bookings.dto';
 import { BookingStatus } from './entities/booking-status.enum';
 import { Booking } from './entities/booking.entity';
 
@@ -52,12 +54,20 @@ export class BookingsService {
     return this.toDto(await this.bookings.save(booking));
   }
 
-  // Returns every booking as a response DTO, newest first.
-  async findAll(): Promise<BookingResponseDto[]> {
-    const bookings = await this.bookings.find({
+  // Returns a filtered, newest-first page of bookings with its totals.
+  async findAll(query: BookingQueryDto): Promise<PaginatedBookingsDto> {
+    const [rows, total] = await this.bookings.findAndCount({
+      where: this.buildWhere(query),
       order: { createdAt: 'DESC' },
+      skip: (query.page - 1) * query.limit,
+      take: query.limit,
     });
-    return bookings.map((booking) => this.toDto(booking));
+    return {
+      items: rows.map((booking) => this.toDto(booking)),
+      page: query.page,
+      limit: query.limit,
+      total,
+    };
   }
 
   // Returns one booking or throws 404 when it is missing.
@@ -82,6 +92,24 @@ export class BookingsService {
     this.assertTransition(booking.status, BookingStatus.Cancelled);
     booking.status = BookingStatus.Cancelled;
     return this.toDto(await this.bookings.save(booking));
+  }
+
+  // Builds the status filter, expanding search into an OR over customer fields.
+  private buildWhere(
+    query: BookingQueryDto,
+  ): FindOptionsWhere<Booking> | FindOptionsWhere<Booking>[] {
+    const base: FindOptionsWhere<Booking> = {};
+    if (query.status) base.status = query.status;
+
+    const search = query.search?.trim();
+    if (!search) return base;
+
+    const like = ILike(`%${search}%`);
+    return [
+      { ...base, customerName: like },
+      { ...base, customerEmail: like },
+      { ...base, customerPhone: like },
+    ];
   }
 
   // Loads a booking by id or throws the shared not-found error.

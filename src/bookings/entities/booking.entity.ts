@@ -12,6 +12,7 @@ import { Service } from '../../services/entities/service.entity';
 import { BookingStatus } from './booking-status.enum';
 
 @Index('IDX_bookings_status', ['status'])
+@Index('IDX_bookings_created_at', ['createdAt'])
 @Index('IDX_bookings_service_date_time', [
   'serviceId',
   'bookingDate',
